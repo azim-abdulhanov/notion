@@ -4,7 +4,7 @@ import { PricingCard } from './pricing-card'
 
 export const Pricing = () => {
   return (
-    <section className='max-w-6xl container mx-auto pt-22'>
+    <section className='max-w-7xl container mx-auto py-16 px-6'>
       <h1 className='text-2xl sm:text-3xl md:text-4xl font-bold max-w-2xl'>
         One tool for your whole company. Free for teams to try.
       </h1>
@@ -22,7 +22,7 @@ export const Pricing = () => {
         ))}
       </div>
 
-      <div className='space-y-8 lg:grid lg:grid-cols-3 sm:gap-6 xl:gap-10 lg:space-y-0 mt-6'>
+      <div className='grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 md:gap-10 mt-10'>
         {cards.map(card => (
           <PricingCard key={card.id} {...card} />
         ))}

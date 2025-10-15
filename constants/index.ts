@@ -1,0 +1,16 @@
+export const clients = [
+  '/clients/1.svg',
+  '/clients/2.svg',
+  '/clients/3.svg',
+  '/clients/4.svg',
+  '/clients/5.svg',
+  '/clients/6.svg',
+  '/clients/7.svg',
+  '/clients/8.svg',
+  '/clients/9.svg',
+  '/clients/10.svg',
+  '/clients/11.svg',
+  '/clients/12.svg',
+  '/clients/13.svg',
+  '/clients/14.svg',
+]

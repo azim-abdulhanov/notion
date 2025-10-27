@@ -25,7 +25,7 @@ const SecretLayout = ({ children }: IChildProps) => {
   return (
     <SidebarProvider>
       <AppSidebar />
-      <main>
+      <main className='w-full'>
         <SidebarTrigger className='cursor-pointer' />
         {children}
       </main>

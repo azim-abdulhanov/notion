@@ -1,8 +1,9 @@
-import './globals.css'
 import { ConvexClientProvider } from '@/components/providers/convex-provider'
 import { ThemeProvider } from '@/components/providers/theme-provider'
 import type { Metadata } from 'next'
 import { Geist, Geist_Mono } from 'next/font/google'
+import { Toaster } from 'sonner'
+import './globals.css'
 
 const geistSans = Geist({
   variable: '--font-geist-sans',
@@ -37,6 +38,7 @@ export default function RootLayout({
             disableTransitionOnChange
             storageKey='notion-theme'
           >
+            <Toaster position='bottom-right' />
             {children}
           </ThemeProvider>
         </ConvexClientProvider>

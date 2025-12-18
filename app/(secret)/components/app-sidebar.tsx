@@ -20,17 +20,28 @@ import {
 import { api } from '@/convex/_generated/api'
 import { useMutation } from 'convex/react'
 import { Plus, Rocket, Search, Settings, Trash } from 'lucide-react'
+import { useRouter } from 'next/navigation'
+import { toast } from 'sonner'
 import { DocumentItem } from './document-item'
 import { DocumentList } from './document-list'
 import { TrashBox } from './trash-box'
 import { UserBox } from './user-box'
 
 export const AppSidebar = () => {
+  const router = useRouter()
   const createDocument = useMutation(api.document.createDocument)
 
   const onCreateDocument = () => {
-    createDocument({
+    const promise = createDocument({
       title: 'Untitled'
+    })
+      .then(docId => router.push(`/documents/${docId}`))
+      .catch(console.error)
+
+    toast.promise(promise, {
+      loading: 'Creating a new document...',
+      success: 'Created a new document!',
+      error: 'Failed to create a new document.'
     })
   }
 
@@ -80,7 +91,11 @@ export const AppSidebar = () => {
                     <PopoverTrigger>
                       <DocumentItem label='Trash' icon={Trash} />
                     </PopoverTrigger>
-                    <PopoverContent className='w-72' side='right'>
+                    <PopoverContent
+                      className='w-64 p-1'
+                      side='right'
+                      align='start'
+                    >
                       <TrashBox />
                     </PopoverContent>
                   </Popover>

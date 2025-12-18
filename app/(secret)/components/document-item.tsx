@@ -22,7 +22,9 @@ import {
   Plus,
   Trash
 } from 'lucide-react'
+import { useRouter } from 'next/navigation'
 import React from 'react'
+import { toast } from 'sonner'
 
 interface IDocumentItemProps {
   id?: Id<'documents'>
@@ -48,7 +50,23 @@ export const DocumentItem = ({
   documentIcon
 }: IDocumentItemProps) => {
   const { user } = useUser()
+  const router = useRouter()
   const createDocument = useMutation(api.document.createDocument)
+  const archive = useMutation(api.document.archive)
+
+  const onArchive = (evt: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
+    evt.stopPropagation()
+
+    if (!id) return
+
+    const promise = archive({ id }).then(() => router.push('/documents'))
+
+    toast.promise(promise, {
+      loading: 'Archiving document...',
+      success: 'Document archived',
+      error: 'Failed to archive document'
+    })
+  }
 
   const onCreateNewDocument = (
     evt: React.MouseEvent<HTMLButtonElement, MouseEvent>
@@ -67,9 +85,7 @@ export const DocumentItem = ({
     })
   }
 
-  const handleExpand = (
-    evt: React.MouseEvent<HTMLButtonElement, MouseEvent>
-  ) => {
+  const handleExpand = (evt: React.MouseEvent<HTMLElement, MouseEvent>) => {
     evt.stopPropagation()
     onExpand?.()
   }
@@ -123,11 +139,7 @@ export const DocumentItem = ({
               </Button>
             </DropdownMenuTrigger>
             <DropdownMenuContent className='w-60' align='start'>
-              <DropdownMenuItem
-                onClick={e => {
-                  e.stopPropagation()
-                }}
-              >
+              <DropdownMenuItem onClick={onArchive}>
                 <Trash className='h-4 w-4' />
                 <span>Delete</span>
               </DropdownMenuItem>
